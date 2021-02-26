@@ -1,49 +1,44 @@
 // from data.js
 var tableData = data;
 
-// YOUR CODE HERE!
+// Get a reference to the table body
+// Select the button
 var tbody = d3.select("tbody");
 var button = d3.select("#filter-btn");
-var inputField1 = d3.select("#datetime");
-var inputField2 = d3.select("#city");
-var columns = ["datetime", "city", "state", "country", "shape", "durationMinutes", "comments"]
 
-var populate = (dataInput) => {
-
-	dataInput.forEach(ufo_sightings => {
-		var row = tbody.append("tr");
-		columns.forEach(column => row.append("td").text(ufo_sightings[column])
-		)
-	});
-}
-
-//Populate table
-populate(data);
-
-// activating event of button click
-button.on("click", () => {
+// Create event handlers 
+button.on("click", function(){
+	// Prevent the page from refreshing
 	d3.event.preventDefault();
-	var inputDate = inputField1.property("value").trim();
-	var inputCity = inputField2.property("value").toLowerCase().trim();
-	var filterDate = data.filter(data => data.datetime === inputDate);
-	console.log(filterDate)
-	var filterCity = data.filter(data => data.city === inputCity);
-	console.log(filterCity)
-	var filterData = data.filter(data => data.datetime === inputDate && data.city === inputCity);
-	console.log(filterData)
-	tbody.html("");
-	let response = {
-		filterData, filterCity, filterDate
-	}
+	// Select the input element and get the raw HTML node
+	var inputElement = d3.select("#datetime");
 
-	if (response.filterData.length !== 0) {
-		populate(filterData);
-	}
-		else if (response.filterData.length === 0 && ((response.filterCity.length !== 0 || response.filterDate.length !== 0))){
-			populate(filterCity) || populate(filterDate);
+	// Get the value property of the input element
+	var inputValue = inputElement.property("value");
 	
-		}
-		else {
-			tbody.append("tr").append("td").text("No results found!"); 
-		}
-})
+	//   check the correct values are displayed on the console
+	console.log(inputValue);
+	console.log(tableData);
+
+	var filteredData = tableData.filter(ufo => ufo.datetime === inputValue);
+	console.log(filteredData);
+});
+
+// //Populate table
+// populate(data);
+
+// // Filter by attribute
+// button.on("click", () => {
+	
+// 	var inputDate = inputField1.property("value").trim();
+// 	var inputCity = inputField2.property("value").toLowerCase().trim();
+// 	// Filter by field matching input value
+// 	var filterDate = data.filter(data => data.datetime === inputDate);
+// 	console.log(filterDate)
+// 	var filterCity = data.filter(data => data.city === inputCity);
+// 	console.log(filterCity)
+// 	var filterData = data.filter(data => data.datetime === inputDate && data.city === inputCity);
+// 	console.log(filterData)
+
+	// clear data
+	tbody.html("");
