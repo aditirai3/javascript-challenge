@@ -36,10 +36,6 @@ function runEnter(){
   	var inputValue4 = inputCount.property("value");
   	var inputValue5 = inputShape.property("value");
 
-	var mapDate = tableData.map(x => x.datetime === inputValue1 {
-		return x;
-	  });
-	
 	
 	function multifilter(newList){
 		// create an empty list
@@ -51,7 +47,6 @@ function runEnter(){
 		if (inputValue4 != "") {inputlist.push(newList.country === inputValue4)} else {inputlist.push(true)};
 		if (inputValue5 != "") {inputlist.push(newList.shape === inputValue5)} else {inputlist.push(true)};
 		return inputlist[0] && inputlist[1] && inputlist[2] && inputlist[3] && inputlist[4]
-	
 	};
 
 	var filteredData = tableData.filter(multifilter);
