@@ -23,17 +23,40 @@ function runEnter(){
 	// Prevent the page from refreshing
 	d3.event.preventDefault();
 	// Select the input element and get the raw HTML node
-	var inputElement = d3.select("#datetime");
+	var inputDate = d3.select("#datetime");
+	var inputCity = d3.select("#city");
+  	var inputState = d3.select("#state");
+  	var inputCount = d3.select("#country");
+  	var inputShape = d3.select("#shape");
 
 	// Get the value property of the input element
-	var inputValue = inputElement.property("value");
-	
-	//   check the correct values are displayed on the console
-	console.log(inputValue);
-	console.log(tableData);
+	var inputValue1 = inputDate.property("value");
+	var inputValue2 = inputCity.property("value");
+  	var inputValue3 = inputState.property("value");
+  	var inputValue4 = inputCount.property("value");
+  	var inputValue5 = inputShape.property("value");
 
-	var filteredData = tableData.filter(ufo => ufo.datetime === inputValue);
+	var mapDate = tableData.map(x => x.datetime === inputValue1 {
+		return x;
+	  });
+	
+	
+	function multifilter(newList){
+		// create an empty list
+		var inputlist = []
+		// push input value to empty list
+		if (inputValue1 != "") {inputlist.push(newList.datetime === inputValue1)} else {inputlist.push(true)};
+		if (inputValue2 != "") {inputlist.push(newList.city === inputValue2)} else {inputlist.push(true)};
+		if (inputValue3 != "") {inputlist.push(newList.state === inputValue3)} else {inputlist.push(true)};
+		if (inputValue4 != "") {inputlist.push(newList.country === inputValue4)} else {inputlist.push(true)};
+		if (inputValue5 != "") {inputlist.push(newList.shape === inputValue5)} else {inputlist.push(true)};
+		return inputlist[0] && inputlist[1] && inputlist[2] && inputlist[3] && inputlist[4]
+	
+	};
+
+	var filteredData = tableData.filter(multifilter);
 	console.log(filteredData);
+	
 	tbody.html(""); // to clear out previous data
 
 	filteredData.forEach(function(ufo) {
